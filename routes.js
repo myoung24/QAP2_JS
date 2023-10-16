@@ -1,22 +1,6 @@
 const fs = require("fs");
 
-function indexPage(path, response) {
-  displayFile(path, response);
-}
-function aboutPage(path, response) {
-  displayFile(path, response);
-}
-function contactPage(path, response) {
-  displayFile(path, response);
-}
-function productsPage(path, response) {
-  displayFile(path, response);
-}
-function subscribePage(path, response) {
-  displayFile(path, response);
-}
-
-function fourofourPage(path, response) {
+function displayPage(path, response) {
   displayFile(path, response);
 }
 
@@ -35,11 +19,6 @@ function displayFile(path, response) {
 }
 
 module.exports = {
-  indexPage,
-  aboutPage,
-  contactPage,
-  productsPage,
-  subscribePage,
-  fourofourPage,
+  displayFile,
   // export other pages
 };
