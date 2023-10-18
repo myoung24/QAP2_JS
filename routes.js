@@ -1,6 +1,34 @@
 const fs = require("fs");
 
-function displayPage(path, response) {
+// define/extend an EventEmitter class
+const EventEmitter = require("events");
+class MyEmitter extends EventEmitter {}
+// initialize an new emitter object
+const myEmitter = new MyEmitter();
+
+myEmitter.on("route", (statusCode, info) => {
+  console.log("<EVENT> Response code: " + statusCode + ",", info);
+});
+
+function indexPage(path, response) {
+  displayFile(path, response);
+}
+function aboutPage(path, response) {
+  myEmitter.emit("route", response.statusCode, "About page accessed");
+  displayFile(path, response);
+}
+function contactPage(path, response) {
+  displayFile(path, response);
+}
+function productsPage(path, response) {
+  displayFile(path, response);
+}
+function subscribePage(path, response) {
+  displayFile(path, response);
+}
+
+function fourofourPage(path, response) {
+  myEmitter.emit("route", "404", "Page not found");
   displayFile(path, response);
 }
 
@@ -19,6 +47,10 @@ function displayFile(path, response) {
 }
 
 module.exports = {
-  displayFile,
-  // export other pages
+  indexPage,
+  aboutPage,
+  contactPage,
+  productsPage,
+  subscribePage,
+  fourofourPage,
 };

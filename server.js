@@ -1,11 +1,7 @@
 const http = require("http");
 const routes = require("./routes.js");
 
-const EventEmitter = require("events");
-class myEmitter extends EventEmitter {}
-const MyEmitter = new myEmitter();
-
-const DEBUG = false;
+const DEBUG = true;
 
 var statusCode;
 
@@ -19,37 +15,36 @@ const server = http.createServer((request, response) => {
     case "/index":
       path += "index.html";
       response.statusCode = 200;
+      routes.indexPage(path, response);
       break;
     case "/about":
       path += "about.html";
       response.statusCode = 200;
+      routes.aboutPage(path, response);
       break;
     case "/contact":
       path += "contact.html";
       response.statusCode = 200;
+      routes.contactPage(path, response);
       break;
     case "/products":
       path += "products.html";
       response.statusCode = 200;
+      routes.productsPage(path, response);
       break;
     case "/subscribe":
       path += "subscribe.html";
       response.statusCode = 200;
+      routes.subscribePage(path, response);
       break;
     default:
       path += "404.html";
       response.statusCode = 404;
+      routes.fourofourPage(path, response);
       break;
   }
   if (DEBUG) console.log(path);
-  routes.displayFile(path, response);
-  statusCode = response.statusCode;
-  if (DEBUG) console.log("statusCode:", statusCode);
-  MyEmitter.emit(statusCode);
-});
-
-MyEmitter.on(404, () => {
-  console.log("<EVENT> statusCode:", statusCode, "page not found");
+  if (DEBUG) console.log("STATUS CODE", response.statusCode);
 });
 
 server.listen(3000, "localhost", () => {
